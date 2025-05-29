@@ -73,24 +73,10 @@ if exist "%VSCODIUM_EXTENSIONS%" (
     echo [警告] 插件目录不存在: %VSCODIUM_EXTENSIONS%
 )
 
-:: 导出已安装插件列表（可选步骤，如果失败会跳过）
-echo.
-echo [步骤4] 导出插件列表...
-where codium >nul 2>&1
-if !errorlevel! equ 0 (
-    codium --list-extensions > "%BACKUP_DIR%\installed_extensions.txt" 2>nul
-    if exist "%BACKUP_DIR%\installed_extensions.txt" (
-        echo [完成] 插件列表已导出
-    ) else (
-        echo [跳过] 插件列表导出失败，继续备份
-    )
-) else (
-    echo [跳过] 未找到codium命令，继续备份
-)
 
 :: 创建备份信息文件
 echo.
-echo [步骤5] 创建备份信息文件...
+echo [步骤4] 创建备份信息文件...
 echo VSCodium配置备份信息 > "%BACKUP_DIR%\backup_info.txt"
 echo ======================== >> "%BACKUP_DIR%\backup_info.txt"
 echo 备份时间: %YYYY%-%MM%-%DD% %HH%:%Min%:%Sec% >> "%BACKUP_DIR%\backup_info.txt"
@@ -113,7 +99,7 @@ echo [完成] 备份信息文件已创建
 
 :: 检查7z是否可用
 echo.
-echo [步骤6] 压缩备份文件...
+echo [步骤5] 压缩备份文件...
 where 7z >nul 2>&1
 if !errorlevel! equ 0 (
     set "ZIP_CMD=7z"
